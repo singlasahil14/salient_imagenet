@@ -1,7 +1,7 @@
 # Welcome to Salient Imagenet
 
 
-Salient Imagenet is a dataset for testing the sensitivity of neural networks to different features. To achieve this, we first visualize the top-5 features used by a robust neural network to predict some class and annotate each feature as either core/spurious. Next, we add gaussian noise to the regions including these features and evaluate the drop in model performance to test the sensitivity of the model.
+Salient Imagenet is a dataset for testing the sensitivity of neural networks to different features. To achieve this, we first visualize the top-5 features used by a robust neural network to predict some class and annotate each feature as either core/spurious. Next, we add gaussian noise to the regions containing these features and evaluate the model performance on the noisy images to test the model sensitivity to different features.
 
 ## Prerequisites
 
