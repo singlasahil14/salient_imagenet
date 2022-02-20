@@ -1,0 +1,37 @@
+# Welcome to Salient Imagenet
+
+
+Salient Imagenet is a dataset for testing the sensitivity of neural networks to spurious features. To achieve this, we first visualize the top-5 features used by a robust model to predict some class and label each of these features as either core or spurious. Next, we add gaussian noise to the identified core and spurious regions and evaluate the drop in model performance to test the sensitivity of the model to these features.
+
+## Prerequisites
+
++ Python 3.7+
++ Pytorch >= 1.9.0
++ PIL >= 8.4.0 
++ clip. Can be installed using ```pip install git+https://github.com/openai/CLIP.git``` 
++ timm >= 0.4.12
++ pandas >= 1.3.1
++ numpy >= 1.21.2
++ cv2 >= 4.5.3
+
+
+## Setup
+
++ Load the Robust Resnet-50 model using the following command: ```wget -O robust_resnet50.pth  https://www.dropbox.com/s/knf4uimlqsi1yz8/imagenet_l2_3_0.pt?dl=0```
+
+## Visualizing class and feature pairs
+
++ Run visualize_class_feature_pair.ipynb to visualize the feature, class and the Mechanical Turk worker annotations.
+
+## Citation
+
+```
+@inproceedings{
+  singla2022causal,
+  title={Salient ImageNet: How to discover spurious features in Deep Learning?},
+  author={Sahil Singla and Soheil Feizi},
+  booktitle={International Conference on Learning Representations},
+  year={2022},
+  url={https://openreview.net/forum?id=XVPqLyNxSyh}
+}
+```
