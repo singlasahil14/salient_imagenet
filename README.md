@@ -17,7 +17,7 @@ Salient Imagenet is a dataset for testing the sensitivity of neural networks to 
 
 ## Setup
 
-Load the Robust Resnet-50 model using the command given below:   
++ Load the Robust Resnet-50 model using the command given below:   
 ```wget -O robust_resnet50.pth  https://www.dropbox.com/s/knf4uimlqsi1yz8/imagenet_l2_3_0.pt?dl=0```
 
 ## Visualizing class and feature pairs
@@ -42,7 +42,7 @@ Load the Robust Resnet-50 model using the command given below:
 + Run ```evaluate_sensitivity_single_feature.ipynb``` to test the sensitivity of pretrained models to all 5000 features. 
 + Run ```evaluate_sensitivity_core_features.ipynb``` to test the sensitivity of pretrained models to core features and compute spurious accuracy. 
 + Run ```evaluate_sensitivity_spurious_features.ipynb``` to test the sensitivity of pretrained models to core features and compute core accuracy. 
-+ The pretrained models to evaluate are given in the list ```model_name_list``` and standard deviation of noise in the list ```add_noise_stds_list```.
++ The pretrained models to evaluate are given in the list ```model_name_list``` and standard deviation of Gaussian noise in the list ```noise_stds_list```.
 
 
 ## Citation
