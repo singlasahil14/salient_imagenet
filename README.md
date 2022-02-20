@@ -23,7 +23,7 @@ Load the Robust Resnet-50 model using the command given below:
 ## Visualizing class and feature pairs
 
 + Run visualize_class_feature_pair.ipynb to visualize the feature, class and the Mechanical Turk worker annotations. 
-+ Specify class_index, feature_index variables in the jupyter notebook to visualize features in Section J of the paper.
++ Specify ```class_index, feature_index``` in the jupyter notebook to visualize features in Section J of the paper.
 
 ## Citation
 
