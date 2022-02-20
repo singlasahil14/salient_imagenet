@@ -26,8 +26,8 @@ Load the Robust Resnet-50 model using the command given below:
 + Specify ```class_index, feature_index``` in the jupyter notebook to visualize features in Section J of the paper.
 + Example for ```class_index = 325, feature_index = 595``` given below:
 ![images](./demo_images/325_595_images.jpg)
-![heatmaps](./demo_images/325_595_heatmaps.png)
-![attacks](./demo_images/325_595_attacks.png)
+![heatmaps](./demo_images/325_595_heatmaps.jpg)
+![attacks](./demo_images/325_595_attacks.jpg)
 
 
 ## Citation
