@@ -22,13 +22,20 @@ Load the Robust Resnet-50 model using the command given below:
 
 ## Visualizing class and feature pairs
 
-+ Run visualize_class_feature_pair.ipynb to visualize the feature, class and obtain the Mechanical Turk Worker annotations. 
++ Run ```visualize_class_feature_pair.ipynb``` to visualize the feature, class and obtain the Mechanical Turk Worker annotations. 
 + Specify ```class_index, feature_index``` in the jupyter notebook to visualize features in Section J of the paper.
 + Example for ```class_index = 325, feature_index = 595``` given below:
 ![images](./demo_images/325_595_images.jpg)
 ![heatmaps](./demo_images/325_595_heatmaps.jpg)
 ![attacks](./demo_images/325_595_attacks.jpg)
 
+## Visualizing Salient Imagenet
+
++ Run ```visualize_salient_imagenet.ipynb``` to visualize the images and heatmaps in Salient Imagenet dataset. 
++ Specify ```class_index, feature_index``` in the jupyter notebook to visualize features in Section J of the paper.
++ Example for ```class_index = 309, feature_index = 1941``` given below:
+![images](./demo_images/309_1941_images.jpg)
+![heatmaps](./demo_images/309_1941_heatmaps.jpg)
 
 ## Citation
 
