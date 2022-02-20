@@ -5,7 +5,7 @@ Salient Imagenet is a dataset for testing the sensitivity of neural networks to 
 
 ## Prerequisites
 
-+ Python 3.7+
++ Python >= 3.7
 + Pytorch >= 1.9.0
 + PIL >= 8.4.0 
 + clip. Can be installed using ```pip install git+https://github.com/openai/CLIP.git``` 
