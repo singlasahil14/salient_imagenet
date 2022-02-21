@@ -13,52 +13,36 @@ import clip
 import timm
 
 class NoiseSensitivityAnalysis:
-    def __init__(self, main_dir, add_noise_mean=0., batch_size=32):
-        self.main_dir = main_dir
-        self.add_noise_mean = add_noise_mean
+    def __init__(self, images_path, masks_path, batch_size=32):
+        self.images_path = images_path
+        self.masks_path = masks_path
         self.batch_size = batch_size
 
-    def add_gaussian_noise(self, images, soft_masks, add_noise_std):
-        gaussian_noise = self.add_noise_mean + add_noise_std * ch.randn(*images.shape)
+    def add_gaussian_noise(self, images, masks, noise_mean, noise_std):
+        gaussian_noise = noise_mean + noise_std * ch.randn(*images.shape).to(images.device)
         
-        images_n = images + (gaussian_noise * soft_masks)
+        images_n = images + (gaussian_noise * masks)
         images_n = ch.clamp(images_n, 0., 1.)
         return images_n
         
-    def corrupted_images(self, images, masks, corruption_type="add", add_noise_std=None):
-        assert corruption_type in ["none", "add"]
-        
-        images = images.float().cpu()
-        masks = masks.float().cpu()
-
-        if corruption_type == "add":
-            images_corrupted = self.add_gaussian_noise(images, masks, add_noise_std)
-        elif corruption_type == "none":
-            images_corrupted = images
-        return images_corrupted
-    
     def compute_noisy_acc(self, inspection_model, class_index, feature_indices, 
-                          add_noise_std, preprocess=None):
+                          noise_mean=0., noise_std=0.25):
         preds_all = []
         preds_noisy_all = []
         
-        salient_imagenet = SalientImageNet(self.main_dir, class_index, feature_indices, 
-                                            preprocess=preprocess)
-        total = len(salient_imagenet)
-        
+        salient_imagenet = SalientImageNet(self.images_path, self.masks_path, class_index, feature_indices)        
         data_loader = DataLoader(salient_imagenet, batch_size=self.batch_size, shuffle=False)
         
-        for images_batch, soft_masks_batch in data_loader:
-            images_batch = images_batch.float().cuda()            
+        for images_batch, masks_batch in data_loader:
+            
+            images_batch, masks_batch = images_batch.cuda(), masks_batch.cuda()
             with ch.no_grad():
                 logits_batch = inspection_model(images_batch)
             preds_batch = ch.argmax(logits_batch, dim=1).cpu().numpy()            
             preds_all.append(preds_batch)
 
-            
-            images_noisy_batch = self.corrupted_images(images_batch, soft_masks_batch, 
-                                                       corruption_type="add", 
-                                                       add_noise_std=add_noise_std)
+            images_noisy_batch = self.add_gaussian_noise(images_batch, masks_batch, 
+                                                         noise_mean=0., noise_std=noise_std)
             images_noisy_batch = images_noisy_batch.float().cuda()
             with ch.no_grad():
                 logits_noisy_batch = inspection_model(images_noisy_batch)
@@ -68,104 +52,85 @@ class NoiseSensitivityAnalysis:
         preds_all = np.concatenate(preds_all, axis=0)
         preds_noisy_all = np.concatenate(preds_noisy_all, axis=0)
         
-        clean_acc = np.sum(preds_all == class_index)/total
-        noisy_acc = np.sum(preds_noisy_all == class_index)/total
-
+        clean_acc = np.sum(preds_all == class_index)/len(preds_all)
+        noisy_acc = np.sum(preds_noisy_all == class_index)/len(preds_all)
         return clean_acc, noisy_acc
     
     
 class SalientImageNet(Dataset):
-    def __init__(self, main_dir, class_index, feature_indices, 
-                 resize_size=224, preprocess=None):
-        if preprocess is None:
-            self.transform = transforms.Compose([
-                transforms.Resize(resize_size),
-                transforms.CenterCrop(resize_size),
-                transforms.ToTensor()
-            ])
-        else:
-            self.transform = preprocess
+    def __init__(self, images_path, masks_path, class_index, feature_indices, 
+                 resize_size=256, crop_size=224):
+        self.transform = transforms.Compose([
+            transforms.Resize(resize_size),
+            transforms.CenterCrop(crop_size),
+            transforms.ToTensor()
+        ])
 
-        wordnet_dict = eval(open(os.path.join(main_dir, 'wordnet_dict.py')).read())
+        wordnet_dict = eval(open(os.path.join(masks_path, 'wordnet_dict.py')).read())
         wordnet_id = wordnet_dict[class_index]
         
-        class_path = os.path.join(main_dir, wordnet_id)
-
-        image_fnames_file = os.path.join(class_path, 'image_fnames.csv')
-        image_fnames_df = pd.read_csv(image_fnames_file)
+        self.images_path = os.path.join(images_path, 'train', wordnet_id)
+        self.masks_path = os.path.join(masks_path, wordnet_id)
         
+        image_names_file = os.path.join(self.masks_path, 'image_names_map.csv')
+        image_names_df = pd.read_csv(image_names_file)
+        
+        image_names = []
         feature_indices_dict = defaultdict(list)
-        image_paths = []
-        image_fnames = []
         for feature_index in feature_indices:
-            feature_path = os.path.join(class_path, 'feature_' + str(feature_index))
-            images_path = os.path.join(feature_path, 'images')            
+            image_names_feature = image_names_df[str(feature_index)].to_numpy()
             
-            image_fnames_feature = image_fnames_df[str(feature_index)].to_numpy()
-            
-            for i, image_fname in enumerate(image_fnames_feature):
-                image_fnames.append(image_fname)
-                
-                image_path = os.path.join(images_path, str(image_fname) + '.jpeg')
-                image_paths.append(image_path)
-                
-                feature_indices_dict[image_fname].append(feature_index)        
+            for i, image_name in enumerate(image_names_feature):
+                image_names.append(image_name)                
+                feature_indices_dict[image_name].append(feature_index)        
         
-        image_fnames = np.array(image_fnames)
-        self.image_fnames, unique_indices = np.unique(image_fnames, return_index=True)        
-                
-        image_paths = np.array(image_paths)
-        self.image_paths = image_paths[unique_indices]
-        
+        self.image_names = np.unique(np.array(image_names))                
         self.feature_indices_dict = feature_indices_dict
-        
-        self.class_path = class_path
 
     def __len__(self):
-        return len(self.image_paths)
+        return len(self.image_names)
 
     def __getitem__(self, index):
-        image_fname = self.image_fnames[index]
-        image_path = self.image_paths[index]
+        image_name = self.image_names[index]
+        curr_image_path = os.path.join(self.images_path, image_name + '.JPEG')
 
-        image = Image.open(image_path).convert("RGB")
+        image = Image.open(curr_image_path).convert("RGB")
         image_tensor = self.transform(image)
         
-        feature_indices = self.feature_indices_dict[image_fname]
+        feature_indices = self.feature_indices_dict[image_name]
         
-        all_mask = np.zeros(image.size)
-        for feature_index in feature_indices:
-            feature_path = os.path.join(self.class_path, 'feature_' + str(feature_index))
-            cams_path = os.path.join(feature_path, 'cams')
-
-            cam_path = os.path.join(cams_path, str(image_fname) + '.jpeg')
-            mask = np.asarray(Image.open(cam_path))
+        all_mask = np.zeros(image_tensor.shape[1:])
+        for feature_index in feature_indices:            
+            curr_mask_path = os.path.join(self.masks_path, 'feature_' + str(feature_index), image_name + '.JPEG')
+            
+            mask = np.asarray(Image.open(curr_mask_path))
             mask = (mask/255.)
             
             all_mask = np.maximum(all_mask, mask)
-        
-        
+
         all_mask = np.uint8(all_mask * 255)
         all_mask = Image.fromarray(all_mask)
         mask_tensor = self.transform(all_mask)
         return image_tensor, mask_tensor
     
 class CompleteModel(ch.nn.Module):
-    def __init__(self, model, last_weights=None):
+    def __init__(self, model, CLIP_weights=None):
         super(CompleteModel, self).__init__()
-        if last_weights is None:
+        if CLIP_weights is None:
             self.mean = ch.Tensor([0.485, 0.456, 0.406]).view(1, 3, 1, 1).cuda()
             self.std = ch.Tensor([0.229, 0.224, 0.225]).view(1, 3, 1, 1).cuda()
-            self.normalize = lambda x: (x - self.mean)/self.std
             
             self.postprocess = lambda x: x
             self.model = model
         else:
-            self.normalize = lambda x: x
+            self.mean = ch.Tensor([0.48145466, 0.4578275, 0.40821073]).view(1, 3, 1, 1).cuda()
+            self.std = ch.Tensor([0.26862954, 0.26130258, 0.27577711]).view(1, 3, 1, 1).cuda()
             
-            self.last_weights = last_weights
+            self.last_weights = CLIP_weights
             self.postprocess = self.features_to_logits_map
             self.model = model.encode_image
+            
+        self.normalize = lambda x: (x - self.mean)/self.std
         
     def features_to_logits_map(self, features):
         features /= features.norm(dim=-1, keepdim=True)
@@ -184,7 +149,7 @@ def load_inspection_model(model_name):
     timm_models = timm.list_models(pretrained=True)
     
     preprocess = None
-    last_weights = None
+    CLIP_weights = None
     if model_name in clip_models:
         if model_name == 'clip_vit_b16':
             model, preprocess = clip.load("ViT-B/16")
@@ -193,15 +158,15 @@ def load_inspection_model(model_name):
             model, preprocess = clip.load("ViT-B/32")
             weights_path = os.path.join('./models/clip_vit_b32_zeroshot_weights.npy')
             
-        linear_weights = np.load(weights_path)
-        linear_weights = ch.from_numpy(linear_weights)
-        last_weights = linear_weights.cuda()
+        CLIP_weights = np.load(weights_path)
+        CLIP_weights = ch.from_numpy(CLIP_weights)
+        CLIP_weights = CLIP_weights.cuda()
     elif model_name in timm_models:
         model = timm.create_model(model_name, pretrained=True)
         model.eval()
 
     model.eval()
-    model = CompleteModel(model, last_weights=last_weights)
+    model = CompleteModel(model, CLIP_weights=CLIP_weights)
     model = model.cuda()
     return model, preprocess
 
