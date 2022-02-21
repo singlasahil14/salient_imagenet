@@ -46,7 +46,7 @@ Salient Imagenet is a dataset for testing the sensitivity of neural networks to 
 + Run ```evaluate_sensitivity_spurious_features.ipynb``` to test the sensitivity of pretrained models to core features and compute core accuracy. 
 
 
-## Citation
+## Citations
 
 ```
 @inproceedings{singla2022causal,
