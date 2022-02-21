@@ -56,4 +56,11 @@ Salient Imagenet is a dataset for testing the sensitivity of neural networks to 
   year={2022},
   url={https://openreview.net/forum?id=XVPqLyNxSyh}
 }
+
+@inproceedings{singlaCVPR2021,
+    title={Understanding Failures of Deep Networks via Robust Feature Extraction},
+    author={Sahil Singla and Besmira Nushi and Shital Shah and Ece Kamar and Eric Horvitz},
+    booktitle={The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+    year={2021}
+}
 ```
