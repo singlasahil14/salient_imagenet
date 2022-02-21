@@ -48,8 +48,7 @@ Salient Imagenet is a dataset for testing the sensitivity of neural networks to 
 ## Citation
 
 ```
-@inproceedings{
-  singla2022causal,
+@inproceedings{singla2022causal,
   title={Salient ImageNet: How to discover spurious features in Deep Learning?},
   author={Sahil Singla and Soheil Feizi},
   booktitle={International Conference on Learning Representations},
