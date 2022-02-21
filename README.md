@@ -23,7 +23,7 @@ Salient Imagenet is a dataset for testing the sensitivity of neural networks to 
 + Alternatively, download the **Salient ImageNet dataset** on a remote server using the command given below:   
 ```curl -L https://umd.app.box.com/shared/static/eyji8leh2lemhbxovgny9ywc9is53ibr -o salient_imagenet_dataset.zip```
 + Unzip the **Salient Imagenet** zip file using: ```unzip salient_imagenet_dataset.zip```
-+ Update ```IMAGENET_PATH``` in ```dataset_paths.py``` to the folder containing the ImageNet dataset (last folder of ```IMAGENET_PATH``` should be ```ILSVRC2012/```).
++ Update ```IMAGENET_PATH``` in ```dataset_paths.py``` to the folder containing the ImageNet dataset (```IMAGENET_PATH``` should end with ```ILSVRC2012/```).
 
 ## Visualizing class and feature pairs
 
