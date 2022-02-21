@@ -20,11 +20,12 @@ Salient Imagenet is a dataset for testing the sensitivity of neural networks to 
 + Load the **Robust Resnet-50 model** using the command given below:   
 ```wget -O models/robust_resnet50.pth  https://www.dropbox.com/s/knf4uimlqsi1yz8/imagenet_l2_3_0.pt?dl=0```
 + Load the **Salient ImageNet dataset** using [this link](https://umd.box.com/s/eyji8leh2lemhbxovgny9ywc9is53ibr). Unzip the folder using: ```unzip salient_imagenet_dataset.zip```
++ Update ```IMAGENET_PATH``` in dataset_paths to point to the folder containing the ImageNet dataset. The last folder should be ```ILSVRC2012/```.
 
 ## Visualizing class and feature pairs
 
 + Run ```visualize_class_feature_pair.ipynb``` to visualize the feature, class and obtain the Mechanical Turk Worker annotations. 
-+ Specify ```class_index, feature_index, IMAGENET_PATH, SALIENT_IMAGENET_PATH``` in the jupyter notebook to visualize features in Section J of the paper.
++ Specify ```class_index, feature_index``` in the jupyter notebook to visualize features in Section J of the paper.
 + Example for ```class_index = 325, feature_index = 595``` given below:
 ![images](./demo_images/325_595_images.jpg)
 ![heatmaps](./demo_images/325_595_heatmaps.jpg)
@@ -33,14 +34,13 @@ Salient Imagenet is a dataset for testing the sensitivity of neural networks to 
 ## Visualizing Salient Imagenet
 
 + Run ```visualize_salient_imagenet.ipynb``` to visualize the images and heatmaps in Salient Imagenet dataset. 
-+ Specify ```class_index, feature_index, IMAGENET_PATH, SALIENT_IMAGENET_PATH``` in the jupyter notebook to visualize features in Section J of the paper.
++ Specify ```class_index, feature_index``` in the jupyter notebook to visualize features in Section J of the paper.
 + Example for ```class_index = 309, feature_index = 1941``` given below:
 ![images](./demo_images/309_1941_images.jpg)
 ![heatmaps](./demo_images/309_1941_heatmaps.jpg)
 
 ## Testing sensitivity of pretrained models
 
-+ Specify ```IMAGENET_PATH, SALIENT_IMAGENET_PATH``` in the jupyter notebooks to test model sensitivity.
 + The pretrained models to evaluate are given in the list ```model_name_list``` and standard deviation of Gaussian noise in the list ```noise_stds_list```.
 + Run ```evaluate_sensitivity_single_feature.ipynb``` to test the sensitivity of pretrained models to all 5000 features. 
 + Run ```evaluate_sensitivity_core_features.ipynb``` to test the sensitivity of pretrained models to core features and compute spurious accuracy. 
