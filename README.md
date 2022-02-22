@@ -46,12 +46,12 @@ Salient Imagenet is a dataset for testing the sensitivity of neural networks to 
 
 + Run ```visualize_class.ipynb``` to visualize the class and top-5 most predictive features for the class.
 + Specify ```class_index``` in the jupyter notebook.
-+ Example for ```class_index = 325``` given below:
-Object name(s): sulphur butterfly, sulfur butterfly
-Object supercategory: inverterbrates
-Object definition: any of numerous yellow or orange butterflies
-Object wikipedia link(s): https://en.wikipedia.org/wiki/Coliadinae
-Object images from ImageNet validation set:
++ Example for ```class_index = 325``` given below:   
+Object name(s): sulphur butterfly, sulfur butterfly   
+Object supercategory: inverterbrates   
+Object definition: any of numerous yellow or orange butterflies    
+Object wikipedia link(s): https://en.wikipedia.org/wiki/Coliadinae     
+Object images from ImageNet validation set:      
 ![samples](./demo_images/325_samples.jpg)
 
 ## Testing sensitivity of pretrained models
