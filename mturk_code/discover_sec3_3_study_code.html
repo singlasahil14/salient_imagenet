@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html>
+    <form name="mturk_form" method="post" id="mturk_form" action="https://www.mturk.com/mturk/externalSubmit">
+        <meta charset="utf-8" />
+        <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+        <style type="text/css">
+            .description {
+                position: relative;
+                top: 10px;
+                left: 20px;
+                width: 1250px;
+            }
+
+            .head {
+                position: relative;
+                top: 25px;
+                left: 30px;
+                width: 600px;
+            }
+
+            .option {
+                position: relative;
+                top: 30px;
+                left: 50px;
+                background-color: white;
+                width: 550px;
+            }
+
+            .a {
+                position: relative;
+                left: 50px;
+            }
+
+            .wrap a {
+            text-decoration: underline;
+            }
+
+            .doneTask{ 
+              visibility: hidden;
+            }
+
+            input[type="radio"]:checked + .doneTask {
+               visibility: visible;
+            }
+
+            .spacer {
+                position: relative;
+                top: 30px;
+                display: block;
+                margin-top: 1.5em;
+                margin-bottom: 1.5em;
+                margin-left: auto;
+                margin-right: auto;
+                border-style: inset none none none;
+                border-width: 1px;
+            }
+
+            .spacerempty {
+                position: relative;
+                top: 30px;
+                display: block;
+                margin-top: 1.5em;
+                margin-bottom: 1.5em;
+                margin-left: auto;
+                margin-right: auto;
+                border-style: none none none none;
+                border-width: 1px;
+            }
+            img.large {
+                width: 600px;
+                height: auto;
+            }
+
+            img.resize {
+                width: 400px;
+                height: auto;
+            }
+
+            img.small {
+                width: 300px;
+                height: auto;
+            }
+
+            img.xsmall {
+                width: 150px;
+                height: 150px;
+            }
+
+            .popover {
+                max-width: 800px; /* Max Width of the popover (depending on the container!) */
+            }
+
+            .panel-default {
+                position: relative;
+                top: 25px;
+                left: 20px;
+            }
+
+            h3 {
+                color: #4682B4;
+            }
+
+            b {
+                color: #4682B4;
+            }
+
+            .caption {
+                color: #2E8B57;
+                font-weight: bold;
+                width: 300px;
+            }
+
+            .panel-warning {
+                position: relative;
+                left: 0px;
+                background:#FFFFCC;
+            }
+
+            .modal-dialog {
+                width: 1000px;
+            }
+
+            html,body {padding:0;margin:0;}
+            .wrap {
+              font:12px Arial, san-serif;
+            }
+            h1.likert-header {
+              padding-left:4.25%;
+              margin:20px 0 0;
+            }
+            .statement {
+              display:block;
+              font-size: 14px;
+              font-weight: bold;
+              padding: 30px 0 0 4.25%;
+              margin-bottom:10px;
+            }
+            .likert {
+              list-style:none;
+              width:100%;
+              margin:0;
+              padding:0 0 35px;
+              display:block;
+              border-bottom:2px solid #efefef;
+            }
+            .likert:last-of-type {border-bottom:0;}
+            .likert:before {
+              content: '';
+              position:relative;
+              top:11px;
+              left:9.5%;
+              display:block;
+              background-color:#efefef;
+              height:4px;
+              width:78%;
+            }
+            .likert li {
+              display:inline-block;
+              width:19%;
+              text-align:center;
+              vertical-align: top;
+            }
+            .likert li input[type=radio] {
+              display:block;
+              position:relative;
+              top:0;
+              left:50%;
+              margin-left:-6px;
+              
+            }
+            .likert li label {width:100%;}
+            .likert li label a{text-decoration: underline;}
+            .buttons {
+              margin:30px 0;
+              padding:0 4.25%;
+              text-align:right
+            } 
+            .buttons button {
+              padding: 5px 10px;
+              background-color: #67ab49;
+              border: 0;
+              border-radius: 3px;
+            }
+            .buttons .clear {background-color: #e9e9e9;}
+            .buttons .submit {background-color: #67ab49;} 
+            .buttons .clear:hover {background-color: #ccc;}
+            .buttons .submit:hover {background-color: #14892c;} 
+
+            .panel-heading {
+              padding: 0;
+                border:1;
+            }
+            .panel-title>a, .panel-title>a:active{
+              display:block;
+              padding:15px;
+              color:#555;
+              font-size:16px;
+              font-weight:bold;
+              text-decoration:none;
+            }
+            .panel-heading  a:before {
+               font-family: 'Glyphicons Halflings';
+               content: "\e114";
+               float: right;
+               transition: all 0.5s;
+               margin-top: 5px;
+               color: #4682B4;
+            }
+            .panel-heading.active a:before {
+                -webkit-transform: rotate(180deg);
+                -moz-transform: rotate(180deg);
+                transform: rotate(180deg);
+            } 
+        </style>
+
+        <div class="description" id="instructionsContent"  style="font-size:16px;">
+            <h3> <b>Visual attributes used by Artificial Intelligence models to make predictions</b></h3>
+            <br>
+
+<!--             <div>
+                <div class="panel-heading active" id="headingFour" style="margin-right: 1145px;">
+                    <a role="button" data-toggle="collapse" href="#collapse5">
+                        <b style="font-size:20px;" id="context">Context</b> 
+                    </a>
+                </div>
+
+
+                <div id="collapse5" class="panel-collapse collapse in">
+                    The purpose of this research study is to understand which visual attributes Artificial Intelligence models use to make their predictions. A visual attribute corresponds to a concept or combination of concepts present in the image, which are then used to recognize a particular object in the image. It is well known that Artificial Intelligence/Machine Learning models often make predictions based on attributes that may not be a part of the predicted object. For example, a model may predict "tiger cat" by looking at "green background", "swimsuit" by looking at "water", "seat belt" by looking at "window" etc. To date, we do not fully understand whether the visual attributes used to make predictions are a part of the predicted object or not and therefore we are asking for your help to determine the same.
+                </div>
+            </div> 
+            <br> -->
+
+            <div>
+                <div class="panel-heading active" id="headingThree" style="margin-right: 1130px;">
+                    <a role="button" data-toggle="collapse" href="#collapse4">
+                        <b style="font-size:20px;" id="task">Your task</b> 
+                    </a>
+                </div>
+
+                <div id="collapse4" class="panel-collapse collapse in">
+                In this HIT, we will describe a main object and show you different visualizations related to a visual attribute. Your task is to determine whether the visual attribute is a part of the main object, its background or some different object. Occasionally, the images may contain disturbing or adult content. We would like to remind you that participation in our study is voluntary and that you can withdraw from the study at any time.<br>
+                This study is being conducted by Sahil Singla from the University of Maryland. For any questions, please email <b><font color="black">ssingla@umd.edu</font></b>.
+                </div>
+            </div>
+            <br>
+
+
+            <div>
+                <div class="panel-heading active" id="headingThree" style="margin-right: 690px;">
+                    <a role="button" data-toggle="collapse" href="#collapse3">
+                        <b style="font-size:20px;" id="visualattribute">To help you understand the visual attribute, we visualize</b> 
+                    </a>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse in">
+                    <ul class="list-group">
+                        <li class="list-group-item"><b><font color="black">Top five images</font></b> <br>a set of five images for which the model detects the visual attribute with the highest scores. By looking at <b>what these images have in common</b>, you can try to understand the meaning of the visual attribute. </li>
+                        <li class="list-group-item"><b><font color="black">Highlighted visual attribute</font></b> <br> for the same set of five images, we show a heatmap of where the model is looking at when detecting the visual attribute. The higher the intensity of the <b><font color="#D04423">red</font></b> color, <b><font color="#D04423">the more relevant</font></b> is that part of the image for the visual attribute. The higher the intensity of the <b><font color="#00008B">blue</font></b> color, <b><font color="#00008B">the less relevant</font></b> is that part of the image for the visual attribute. <a data-container="body" data-content="<div><img class='resize' src='${root_url}/demo_images/heatmap_example1.jpg' /></div>" data-toggle="tooltip" role="button">Example (water)</a>, <a data-container="body" data-content="<div><img class='resize' src='${root_url}/demo_images/heatmap_example2.jpg' /></div>" data-toggle="tooltip" role="button">Example (fingers)</a></li>
+                        <li class="list-group-item"><b><font color="black">Amplified visual attribute</font></b> <br> again for the same set of five images, we show <b>modified images that significantly increase the score</b> of the visual attribute detected by the model. <a data-container="body" data-content="<div><img class='resize' src='${root_url}/demo_images/featureattack_example1.jpg' /></div>" data-toggle="tooltip" role="button">Example (water)</a>, <a data-container="body" data-content="<div><img class='resize' src='${root_url}/demo_images/featureattack_example2.jpg' /></div>" data-toggle="tooltip" role="button">Example (fingers)</a>. This can be useful for understanding the the visual attribute particularly when the visualizations of previous section (highlighted visual attributes) overlap on two different objects such as in these examples: <a href='${root_url}/demo_images/cougar_wires_overlap.jpg' data-container="body" data-content="<div><img class='resize' src='${root_url}/demo_images/cougar_wires_overlap.jpg' /></div>" data-toggle="tooltip" role="button">overlap between cougar and wires</a>, <a href='${root_url}/demo_images/groom_flowers_overlap.jpg' data-container="body" data-content="<div><img class='resize' src='${root_url}/demo_images/groom_flowers_overlap.jpg' /></div>" data-toggle="tooltip" role="button">overlap between groom and flowers</a>. </li> 
+                    </ul>
+                </div>
+            </div>
+            <br>
+
+            <div>
+                <div class="panel-heading active" id="headingTwo" style="margin-right: 600px;">
+                        <a role="button" data-toggle="collapse" href="#collapse2">
+                            <b style="font-size:20px;" id="objectcategory">To help you understand the main object, we provide</b> 
+                        </a>
+                </div>
+
+                <div id="collapse2" class="panel-collapse collapse in">
+                    <ul class="list-group">
+                        <li class="list-group-item"><b><font color="black">Object category name(s)</font></b> <br> A set of comma separated names (all names have the same meaning) for the object of interest. </li>
+                        <li class="list-group-item"><b><font color="black">Object supercategory</font></b> <br> The supercategory (usually easier to understand than the object category) to which the object belongs. For example: <b><font color="black">ambulance and airliner</font></b> belong to the<b><font color="black"> supercategory vehicles</font></b>; <b><font color="black">chihuahua and papillon</font></b> belong to the<b><font color="black"> supercategory dogs</font></b> etc.</li>
+                        <li class="list-group-item"><b><font color="black">Example images containing the object</font></b> <br> A set of images containing the object of interest to help you understand the object better.</li>   
+                        <li class="list-group-item"><b><font color="black">Object definition</font></b> <br> A brief definition of the object.</li>   
+                        <li class="list-group-item"><b><font color="black">Wikipedia link(s)</font></b> <br> A set of wikipedia links to help you understand the object meaning.</li>   
+                    </ul>
+                </div>
+            </div>
+            <!-- <br> -->
+
+<!--             <div>
+                <div class="panel-heading active" id="instructions" style="margin-right: 1110px">
+                        <a role="button" data-toggle="collapse" href="#collapse1">
+                            <b style="font-size:20px;" id="headingOne">Instructions</b> 
+                        </a>
+                </div>
+
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <ul class="list-group">
+                        <li class="list-group-item"  style="font-size:18px;"> 
+                            <ul style="list-style-type:disc">
+                                <li>Example in which the visual attribute <b><font color="black">is part of the object</font></b>. 
+                                    <img class='img-responsive' src='${root_url}/demo_images/cat_demo.jpg'>
+                                </li>
+                                <li>
+                                    Here are some more examples where the visual attribute <b><font color="black">is a part</font></b>  of the object category: <br /> 
+                                    <a href="${root_url}/demo_images/bakery_r.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/bakery_r.jpg' /></div>" data-toggle="tooltip" role="button">Example 1 (bakery shop)</a>, 
+                                    &nbsp; 
+                                    <a href="${root_url}/demo_images/cougar_r.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/cougar_r.jpg' /></div>" data-toggle="tooltip" role="button">Example 2 (cougar)</a>,
+                                    &nbsp;
+                                    <a href="${root_url}/demo_images/lobster_r.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/lobster_r.jpg' /></div>" data-toggle="tooltip" role="button">Example 3 (lobster)</a>, 
+                                    &nbsp;
+                                    <a href="${root_url}/demo_images/purse_r.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/purse_r.jpg' /></div>" data-toggle="tooltip" role="button">Example 4 (purse)</a>, 
+                                    &nbsp;
+                                    <a href="${root_url}/demo_images/saluki_r.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/saluki_r.jpg' /></div>" data-toggle="tooltip" role="button">Example 5 (saluki dog)</a>. <br /> 
+                                </li>
+                            </ul>  
+                        </li>
+                        <li class="list-group-item" style="font-size:18px;"> 
+                            <ul style="list-style-type:disc">
+                                <li>Examples in which the visual attribute <b><font color="black">is not part of the object.</font></b><img class='img-responsive' src='${root_url}/demo_images/mouse_demo.jpg'> 
+                                </li>
+                                    <img class='img-responsive' src='${root_url}/demo_images/water_demo.jpg'>
+                                <li> Here are some more examples where the visual attribute <b><font color="black">is not a part</font></b> of the object category: <br /> 
+                        <a href="${root_url}/demo_images/dog_nr.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/dog_nr.jpg' /></div>" data-toggle="tooltip" role="button">Example 6 (rhodesian ridgeback dog)</a>, 
+                        &nbsp;
+                        <a href="${root_url}/demo_images/bassinet_nr.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/bassinet_nr.jpg' /></div>" data-toggle="tooltip" role="button">Example 7 (bassinet)</a>, 
+                        &nbsp;
+                        <a href="${root_url}/demo_images/maillot_nr.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/maillot_nr.jpg' /></div>" data-toggle="tooltip" role="button">Example 8 (maillot)</a>, 
+                        &nbsp;
+                        <a href="${root_url}/demo_images/groom_nr.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/groom_nr.jpg' /></div>" data-toggle="tooltip" role="button">Example 9 (groom)</a>,
+                        &nbsp;
+                        <a href="${root_url}/demo_images/tigercat_nr.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/tigercat_nr.jpg' /></div>" data-toggle="tooltip" role="button">Example 10 (tiger cat)</a>.                            
+                                </li>
+                            </ul>
+
+                        </li> 
+                        <li class="list-group-item" style="font-size:18px;"> <b><font color="black">Amplified visual attributes</font></b>  can be very useful in some cases when the <b><font color="black">highlighted visual attributes are ambiguous</font></b> such as in the example below. However in <b><font color="black">most cases</font></b>, we expect the <b><font color="black">highlighted visual attributes to be sufficient</font></b> for completing the task. <br> 
+                            <img class='img-responsive' src='${root_url}/demo_images/wires_main_demo.jpg'> 
+                        </li>
+                        <li class="list-group-item" style="font-size:18px;">You should <b><font color="black">select not sure</font></b> when the: 
+                            <ul style="list-style-type:disc">
+                              <li>visual attribute seems to be <b><font color="black">ambiguous</font></b> from the visualization. <b><font color="black">DO NOT</font></b> decide the meaning of the visual attribute based on <b><font color="black">majorite vote</font></b>. <img class='img-responsive' src='${root_url}/demo_images/notclear_demo.jpg'>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+ -->
+
+<!--             <div class="panel panel-warning" style="font-size:20px;">
+                <b>Important note</b> <br>
+                Some of the visualizations below are from the <b><font color="black">given solved examples</font></b>. In order to get the HIT approved, you must correctly answer <b><font color="black">at least 60%</font></b> of them.
+            </div>
+ -->
+            <div class="spacer">&nbsp;</div>
+
+            <fieldset id="workContent">
+                <br>
+                <div>
+                    <input type="hidden" value="${class_id}" name="class_index" id="class_index">
+                    <input type="hidden" value="${feature_id}" name="feature_index" id="feature_index">
+
+                    <div id="task" class="panel-collapse collapse in">
+                        <table style="font-size:16px; line-height: normal;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="panel panel-default">
+                                            <br>
+                                            <center><b style="font-size:26px;">Visual attribute</b></center>
+                                            <div class="panel-body">
+                                                <table>
+                                                    <tr align="center">
+                                                        <td style="width:200px" height = "30px">
+                                                            <b>Top five <br> images</b> 
+                                                            <a data-container="body" data-content="<div>Top five images for which the model detects the visual attribute with the highest scores.</div>" data-toggle="tooltip" role="button">
+                                                                <img  height="25px" src="${root_url}/demo_images/icons8-question-mark-64.png" /> <br>
+                                                            </a> 
+                                                        </td>
+                                                        <td></td>
+                                                        <td style="width:200px">
+                                                            <b>Highlighted visual <br> attributes</b>
+                                                            <a data-container="body" data-content="<div>For the top five images, we show heatmaps of where the model is looking at when detecting the visual attribute. The higher the intensity of the <b><font color='#D04423'>red</font></b> color, <b><font color='#D04423'>the more relevant</font></b> that part of the image is for the visual attribute. The higher the intensity of the <b><font color='#00008B'>blue</font></b> color, <b><font color='#00008B'>the less relevant</font></b> that part of the image is for the visual attribute. </div>" data-toggle="tooltip" role="button">
+                                                                <img  height="25px" src="${root_url}/demo_images/icons8-question-mark-64.png" /></a> 
+                                                            <br> 
+                                                        </td>
+                                                        <td></td>
+                                                        <td style="width:200px">
+                                                            <b>Amplified visual <br> attributes</b>
+                                                            <a data-container="body" data-content="<div>For the top five images, we show modified images that significantly increase the score of the visual attribute detected by the model.</div>" data-toggle="tooltip" role="button">
+                                                                <img  height="25px" src="${root_url}/demo_images/icons8-question-mark-64.png" /></a> 
+                                                            <br> 
+                                                        </td>
+                                                    </tr>
+                                                    <tr align="center">
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${images_0}' /></div>" data-toggle="tooltip" role="button" >
+                                                            <img class="xsmall" src="${images_0}" />
+                                                            </a>
+                                                            <br>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${heatmaps_0}' /></div>" data-toggle="tooltip" role="button" >
+                                                                <img class="xsmall" src="${heatmaps_0}" />
+                                                            </a>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${feature_attack_0}' /></div>" data-toggle="tooltip" role="button" >
+                                                                <img class="xsmall" src="${feature_attack_0}" />
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr><td align="center" style="width:200px;height:25px"></td><td></td><td></td><td></td><td></td></tr>
+                                                    <tr align="center">
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${images_1}' /></div>" data-toggle="tooltip" role="button" >
+                                                            <img class="xsmall" src="${images_1}" />
+                                                            </a>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${heatmaps_1}' /></div>" data-toggle="tooltip" role="button" >
+                                                                <img class="xsmall" src="${heatmaps_1}" />
+                                                            </a>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${feature_attack_1}' /></div>" data-toggle="tooltip" role="button" >
+                                                                <img class="xsmall" src="${feature_attack_1}" />
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr><td align="center" style="width:200px;height:25px"></td><td></td><td></td><td></td><td></td></tr>
+                                                    <tr align="center">
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${images_2}' /></div>" data-toggle="tooltip" role="button" >
+                                                            <img class="xsmall" src="${images_2}" />
+                                                            </a>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${heatmaps_2}' /></div>" data-toggle="tooltip" role="button" >
+                                                                <img class="xsmall" src="${heatmaps_2}" />
+                                                            </a>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${feature_attack_2}' /></div>" data-toggle="tooltip" role="button" >
+                                                                <img class="xsmall" src="${feature_attack_2}" />
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr><td align="center" style="width:200px;height:25px"></td><td></td><td></td><td></td><td></td></tr>
+                                                    <tr align="center">
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${images_3}' /></div>" data-toggle="tooltip" role="button" >
+                                                            <img class="xsmall" src="${images_3}" />
+                                                            </a>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${heatmaps_3}' /></div>" data-toggle="tooltip" role="button" >
+                                                                <img class="xsmall" src="${heatmaps_3}" />
+                                                            </a>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${feature_attack_3}' /></div>" data-toggle="tooltip" role="button" >
+                                                                <img class="xsmall" src="${feature_attack_3}" />
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr><td align="center" style="width:200px;height:25px"></td><td></td><td></td><td></td><td></td></tr>
+                                                    <tr align="center">
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${images_4}' /></div>" data-toggle="tooltip" role="button" >
+                                                            <img class="xsmall" src="${images_4}" />
+                                                            </a>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${heatmaps_4}' /></div>" data-toggle="tooltip" role="button" >
+                                                                <img class="xsmall" src="${heatmaps_4}" />
+                                                            </a>
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${feature_attack_4}' /></div>" data-toggle="tooltip" role="button" >
+                                                                <img class="xsmall" src="${feature_attack_4}" />
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr><td align="center" style="width:200px;height:25px"></td><td></td><td></td><td></td><td></td></tr>
+
+                                                </table>
+                                                
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td> &nbsp; &nbsp; &nbsp; </td>
+                                    <td>
+                                        <div class="panel panel-default" style="margin-top:-1px">
+                                            <br>
+                                            <center><b style="font-size:26px; ">Main object</b></center>
+                                            <div class="panel-body">
+                                                <table>
+                                                    <tr>
+                                                        <td colspan="10" width="200px" height="60px">
+                                                            <b>Object category name(s):</b> ${synset}
+                                                            <br> <br> 
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="10" width="200px" height="20px">
+                                                            <b>Object supercategory:</b> ${superclass}
+                                                            <br> <br> 
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="10" width="200px" height="100px"> 
+                                                            <b>Object definition:</b> ${gloss}
+                                                            <br> <br> 
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="10" width="200px" height="20px">
+                                                            <b>Below you can find some images containing the object. 
+                                                            Note that other possibly larger objects may also be present in these images:</b> 
+                                                        </td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td colspan="10" width="200px" height="20px">
+                                                        </td>
+                                                    </tr> 
+
+                                                    <tr align="center">
+                                                        <td style="width:200px; height:30px">
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${examples_0}' /></div>" data-toggle="tooltip" role="button" >
+                                                            <img class="xsmall" src="${examples_0}">
+                                                            </a>
+                                                        </td>
+                                                        <td></td>
+                                                        <td style="width:200px; height:30px">
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${examples_1}' /></div>" data-toggle="tooltip" role="button" >
+                                                                <img class="xsmall" src="${examples_1}">
+                                                            </a>
+                                                        </td>
+                                                        <td></td>
+                                                        <td style="width:200px; height:30px">
+                                                            <a data-container="body" data-content="<div><img class='resize' src='${examples_2}' /></div>" data-toggle="tooltip" role="button" >
+                                                                <img class="xsmall" src="${examples_2}">
+                                                            </a> 
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td colspan="10" width="200px" height="120px"> 
+                                                            <br> 
+                                                            <b>If you are still unsure about the object meaning, you may also consult the following Wikipedia page(s):</b>
+                                                            ${wikilinks}
+                                                        </td>
+                                                    </tr>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="panel panel-default" style="margin-top:23px">
+                            <br>
+                            <br>
+                            <center><b style="font-size:26px; ">Please answer the questions below</b></center>
+                            <br>
+
+                            <div class="panel-body">
+                                <table>
+                                    <tr  align="left">
+                                    </tr>
+
+                                    <tr align="left">
+                                        <td colspan="20" width="1200px" height="20px">
+                                            <font style="font-size:18px;"><b><font color="black">Q1.</font></b> Which of the following best describes the focus of the <b><font color="black">red region in the Highlighted visual attributes</font></b>? <br> <br> 
+                                            <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font style="font-size:18px;"> -->
+                                            <!-- <font style="font-size:18px;"><b><font color="black">Instructions:</font></b> -->
+                                            <ul>
+                                                <li>
+                                                    Amplified visual attributes can be useful in some cases when the <b><font color="black">red region overlaps over multiple objects </font></b> such as in these examples: <a href='${root_url}/demo_images/cougar_wires_overlap.jpg' data-container="body" data-content="<div><img class='resize' src='${root_url}/demo_images/cougar_wires_overlap.jpg' /></div>" data-toggle="tooltip" role="button">overlap between cougar and wires</a>, <a href='${root_url}/demo_images/groom_flowers_overlap.jpg' data-container="body" data-content="<div><img class='resize' src='${root_url}/demo_images/groom_flowers_overlap.jpg' /></div>" data-toggle="tooltip" role="button">overlap between groom and flowers</a>.
+                                                </li> 
+
+                                                <li>
+                                                    <font style="font-size:18px;">You can ignore Amplified visual attributes when the <b><font color="black">red region does not overlap over multiple objects.</font></b></font>
+                                                </li>
+
+                                                <li>
+                                                    <font style="font-size:18px;">The <b><font color="black">main object</font></b> has the following <b><font color="black">name(s)</font></b>: ${synset} </font>
+                                                </li>
+
+                                                <li>
+                                                    <font style="font-size:18px;">The <b><font color="black">main object</font></b> belongs to the following <b><font color="black">supercategory</font></b>: ${superclass} </font>
+                                                </li>
+
+
+                                            </ul> 
+                                            <br>
+
+<!--                                             <b><font color="black">Note: </font></b> Amplified visual attributes can be <b><font color="black">useful when the red region overlaps over two objects</font></b> such as in these examples: <br>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <a href='${root_url}/demo_images/cougar_wires_overlap.jpg' data-container="body" data-content="<div><img class='resize' src='${root_url}/demo_images/cougar_wires_overlap.jpg' /></div>" data-toggle="tooltip" role="button">overlap between cougar and wires</a>, <a href='${root_url}/demo_images/groom_flowers_overlap.jpg' data-container="body" data-content="<div><img class='resize' src='${root_url}/demo_images/groom_flowers_overlap.jpg' /></div>" data-toggle="tooltip" role="button">overlap between groom and flowers</a>. </font></b> <br> <br> 
+ -->
+
+                                            <div class="wrap"> 
+                                                <table>
+                                                    <tr align="center">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input type="radio" name="main_question" value="background"> 
+                                                        &nbsp; <font style="font-size:18px;">Focus is on the <b><font color="black">background of the main object.</font></b></font> <br> 
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <font style="font-size:18px;"><b><font color="black">Examples:</font></b> 
+                                                        <a href="${root_url}/demo_images/grasshopper_greenery.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/grasshopper_greenery.jpg' /></div>" data-toggle="tooltip" role="button">greenery in the background of grasshopper</a>, 
+                                                        <a href="${root_url}/demo_images/albatross_water.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/albatross_water.jpg' /></div>" data-toggle="tooltip" role="button">water in the background of albatross</a>, 
+                                                        <a href="${root_url}/demo_images/bee_flower1.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/bee_flower1.jpg' /></div>" data-toggle="tooltip" role="button">flower in the background of bee</a>, <br>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <a href="${root_url}/demo_images/baseball_pitch1.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/baseball_pitch1.jpg' /></div>" data-toggle="tooltip" role="button">baseball pitch in the background of player</a>. 
+                                                    </font> <br>
+                                                    </tr> <br><br>
+                                                    <tr align="center">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input type="radio" name="main_question" value="separate_object"> 
+                                                        &nbsp; <font style="font-size:18px;">Focus is on some <b><font color="black">other object (not a part of the main object).</font></b></font> <br> 
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <font style="font-size:18px;"><b><font color="black">Examples:</font></b> 
+                                                        <a href="${root_url}/demo_images/bassinet_baby.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/bassinet_baby.jpg' /></div>" data-toggle="tooltip" role="button">baby is not a part of bassinet (baby's bed)</a>, 
+                                                        <a href="${root_url}/demo_images/maillot_legs.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/maillot_legs.jpg' /></div>" data-toggle="tooltip" role="button">legs are not a part of maillot (dress for dancers)</a>, <a href="${root_url}/demo_images/jacamar_wood.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/jacamar_wood.jpg' /></div>" data-toggle="tooltip" role="button">tree branch is not a part of bird</a>, <br>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <a href="${root_url}/demo_images/freight_car_graffiti.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/freight_car_graffiti.jpg' /></div>" data-toggle="tooltip" role="button">graffiti is not a part of freight car</a>, <a href="${root_url}/demo_images/groom_flowers.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/groom_flowers.jpg' /></div>" data-toggle="tooltip" role="button">flowers are not a part of groom</a>, <a href="${root_url}/demo_images/cougar_wires.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/cougar_wires.jpg' /></div>" data-toggle="tooltip" role="button">wires are not a part of cougar</a>.
+                                                        <br>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    </font> <br>
+                                                    </tr> <br>
+                                                    <tr align="center">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input type="radio" name="main_question" value="main_object"> 
+                                                        &nbsp; <font style="font-size:18px;">Focus is on <b><font color="black"> some part of the main object.</font></b></font> <br> 
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <font style="font-size:18px;"><b><font color="black">Examples:</font></b> <a href="${root_url}/demo_images/cougar_nose.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/cougar_nose.jpg' /></div>" data-toggle="tooltip" role="button">nose of a cougar</a>, <a href="${root_url}/demo_images/cat_whiskers.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/cat_whiskers.jpg' /></div>" data-toggle="tooltip" role="button">whiskers of a cat</a>, <a href="${root_url}/demo_images/lobster_legs.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/lobster_legs.jpg' /></div>" data-toggle="tooltip" role="button">legs of a lobster</a>, <a href="${root_url}/demo_images/steel_bridge.jpg" target="_blank" data-container="body" data-content="<div><img class='large' src='${root_url}/demo_images/steel_bridge.jpg' /></div>" data-toggle="tooltip" role="button">structure of a steel bridge</a>.</font> <br>
+                                                    </tr> <br>
+
+                                                    <br><br>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr  align="left">
+                                        <td colspan="10" width="600px" height="20px"> 
+                                            <font style="font-size:18px;"><b><font color="black">Q2.</font></b> How confident are you about your answer to Q1? </font>
+                                            <br> 
+                                            <div class="wrap">
+                                                <ul class='likert'>
+                                                    <li>
+                                                        <input type="radio" name="confidence" value="1">
+                                                        <label style="font-size:14px;">(1) <br />Not confident at all<br />                               
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <input type="radio" name="confidence" value="2">
+                                                        <label style="font-size:14px;">(2) <br />Slightly confident<br />  
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <input type="radio" name="confidence" value="3"> 
+                                                        <label style="font-size:14px;">(3) <br />Somewhat confident<br />     
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <input type="radio" name="confidence" value="4">
+                                                        <label style="font-size:14px;">(4) <br />Fairly confident<br />    
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <input type="radio" name="confidence" value="5">
+                                                        <label style="font-size:14px;">(5) <br />Completely confident<br />                         
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+
+                                    <tr  align="left">
+                                        <td colspan="10" width="600px" height="20px"> 
+                                            <font style="font-size:18px;"><b><font color="black">Q3.</font></b> Please give reason(s) for your answer to Q1? This question is mandatory for completing this HIT. Detailed answers will receive a bonus. </font>
+                                            <br> 
+                                            <div class="wrap"> 
+                                                <table>
+                                                    <tr align="center">
+                                                        <textarea cols="200" id="reasons" name="reasons" rows="5"></textarea>
+                                                    </tr> 
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                </table>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <br>
+                <br>
+                <br>
+
+                <p class="text-center">
+                    <input type="hidden" value="" name="assignmentId" id="assignmentId">
+                    <input style="font-size:20px;" type="submit" id="submitButton" class="btn btn-primary" value="Submit" 
+                            onclick="validateForm()">
+                </p>
+
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+
+
+            </fieldset>
+
+            
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://s3.amazonaws.com/mturk-public/bs30/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm() {
+                var count = 0;
+
+
+                if (!$("input[name='main_question']").is(':checked')) {
+                    Q1_alert_string = 'You have not finished Q1.\n';
+                    count = count + 1;
+                }
+                else {
+                    Q1_alert_string = '';
+                }
+
+                // if (!$("input[name='multi_overlap']").is(':checked')) {
+                //     Q2_alert_string = 'You have not finished Q2.\n';
+                //     count = count + 1;
+                // }
+                // else {
+                //     Q2_alert_string = '';
+                // }
+
+                if (!$("input[name='confidence']").is(':checked')) {
+                    Q2_alert_string = 'You have not finished Q2.\n';
+                    count = count + 1;
+                }
+                else {
+                    Q2_alert_string = '';
+                }
+
+
+                var word = $("[name='reasons']").val().trim();
+                if (word == '') {
+                    Q3_alert_string = 'You have not finished Q3.\n';
+                    count = count + 1;
+                }
+                else {
+                    Q3_alert_string = '';
+                }
+
+
+                // if (!$("input[name='removal']").is(':checked')) {
+                //     Q3_alert_string = 'You have not finished Q3.\n';
+                //     count = count + 1;
+                // }
+                // else {
+                //     Q3_alert_string = '';
+                // }
+
+                // if (!$("input[name='confidence']").is(':checked')) {
+                //     Q4_alert_string = 'You have not finished Q4.\n';
+                //     count = count + 1;
+                // }
+                // else {
+                //     Q4_alert_string = '';
+                // }
+
+                if (count > 0) {
+                    event.preventDefault();
+                    // window.parent.window.alert(Q1_alert_string + Q2_alert_string + Q3_alert_string);
+                    // top.alert(Q1_alert_string + Q2_alert_string + Q3_alert_string + Q4_alert_string);
+                    alert(Q1_alert_string + Q2_alert_string + Q3_alert_string);
+                }
+            }
+
+
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').popover({ container: 'body', html: true, trigger: "hover focus", placement: "bottom", boundary: "window" });
+            });
+
+            function addEvent(elem, event, fn) {
+                function listenHandler(e) {
+                    var ret = fn.apply(this, arguments);
+                    if (ret === false) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                    }
+                    return (ret);
+                }
+
+                function attachHandler() {
+                    var ret = fn.call(elem, window.event);
+                    if (ret === false) {
+                        window.event.returnValue = false;
+                        window.event.cancelBubble = true;
+                    }
+                    return (ret);
+                }
+
+                if (elem.addEventListener) {
+                    elem.addEventListener(event, listenHandler, false);
+                } else {
+                    elem.attachEvent("on" + event, attachHandler);
+                }
+            }
+
+        </script>
+        <script id="rendered-js">
+            $('.panel-collapse').on('show.bs.collapse', function () {
+                $(this).siblings('.panel-heading').addClass('active');
+            });
+
+            $('.panel-collapse').on('hide.bs.collapse', function () {
+                $(this).siblings('.panel-heading').removeClass('active');
+            });
+        </script>
+        <p>&nbsp;</p>
+
+    </form>
+
+<script language="Javascript">turkSetAssignmentID();</script>
+</html>
