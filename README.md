@@ -34,6 +34,13 @@ Salient Imagenet is a dataset for testing the sensitivity of neural networks to 
 ![heatmaps](./demo_images/325_595_heatmaps.jpg)
 ![attacks](./demo_images/325_595_attacks.jpg)
 
+## Visualizing class
+
++ Run ```visualize_class.ipynb``` to visualize the class and top-5 most predictive features for the class.
++ Specify ```class_index``` in the jupyter notebook.
++ Example for ```class_index = 325``` given below:
+![description](./demo_images/325_description.jpg)
+
 ## Visualizing Salient Imagenet
 
 + Run ```visualize_salient_imagenet.ipynb``` to visualize the images and heatmaps in Salient Imagenet dataset. 
