@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from collections import defaultdict
 
@@ -8,6 +9,14 @@ def print_with_stars(print_str, total_count=115, prefix="", suffix="", star='*')
     final_str = "".join([star]*(left_len)) + print_str + "".join([star]*(right_len))
     final_str = prefix + final_str + suffix
     print(final_str)
+    
+def topk_predictive_features(class_index, robust_model, robust_features, k=5):
+    W = (robust_model.model.fc.weight).detach().cpu().numpy()
+    W_class = W[class_index: class_index + 1, :]
+    FI_values = np.mean(robust_features * W_class, axis=0)
+
+    features_indices = np.argsort(-FI_values)[:k]
+    return features_indices
 
 class MTurk_Results:
     def __init__(self, csv_path):
