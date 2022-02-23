@@ -64,7 +64,8 @@ Object images from ImageNet validation set:
 ## Citations
 
 ```
-@inproceedings{singla2022salient,
+@inproceedings{
+  singla2022salient,
   title={Salient ImageNet: How to discover spurious features in Deep Learning?},
   author={Sahil Singla and Soheil Feizi},
   booktitle={International Conference on Learning Representations},
