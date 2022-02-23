@@ -72,14 +72,4 @@ Object images from ImageNet validation set:
   year={2022},
   url={https://openreview.net/forum?id=XVPqLyNxSyh}
 }
-
-@inproceedings{singlaCVPR2021,
-  title     = {Understanding Failures of Deep Networks via Robust Feature Extraction},
-  author    = {Sahil Singla and Besmira Nushi and Shital Shah and Ece Kamar and Eric Horvitz},
-  booktitle = {{IEEE} Conference on Computer Vision and Pattern Recognition, {CVPR} 2021},
-  publisher = {Computer Vision Foundation / {IEEE}},
-  year      = {2021},
-  url       = {https://openaccess.thecvf.com/content/CVPR2021/papers/Singla_Understanding_Failures_of_Deep_Networks_via_Robust_Feature_Extraction_CVPR_2021_paper.pdf},
-}
-
 ```
