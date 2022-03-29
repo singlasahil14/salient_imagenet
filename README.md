@@ -23,7 +23,7 @@ This repository provides code for the ICLR 2022 paper titled [Salient ImageNet: 
 ```curl -L https://umd.app.box.com/shared/static/eyji8leh2lemhbxovgny9ywc9is53ibr -o salient_imagenet_dataset.zip```
 + Unzip the **Salient Imagenet** zip file using: ```unzip salient_imagenet_dataset.zip```
 + Update ```IMAGENET_PATH``` in ```dataset_paths.py``` to the ImageNet dataset (```IMAGENET_PATH``` should end with ```ILSVRC2012/```).
-+ NOTE: SOME IMAGENET VERSIONS REQUIRE meta.bin file to be placed in the folder ending with ```ILSVRC2012/```. This file meta.bin is also provided in the repo.
++ NOTE: Some ImageNet versions require the meta.bin file to be placed in the folder ending with ```ILSVRC2012/```. This file meta.bin is also provided in this repo. 
 
 ## Visualizing class and feature pairs
 
