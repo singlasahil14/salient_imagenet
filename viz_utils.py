@@ -17,7 +17,7 @@ class ImageNetSubset(Dataset):
             transforms.CenterCrop(224),
             transforms.ToTensor()])
 
-        self.imagenet = datasets.ImageNet(root = root, split = 'train') 
+        self.imagenet = datasets.ImageFolder(root = os.path.join(root, 'train'))
         self.image_indices = image_indices
 
     def __len__(self):
