@@ -12,6 +12,7 @@ This repository provides code for the ICLR 2022 paper titled [Salient ImageNet: 
 + pandas >= 1.3.1
 + numpy >= 1.21.2
 + cv2 >= 4.5.3
++ robustness
 
 
 ## Setup
